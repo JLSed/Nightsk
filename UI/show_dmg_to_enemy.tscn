@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6f8sksxahtip"]
+
+[ext_resource type="Script" path="res://UI/show_dmg_to_enemy.gd" id="1_3mg4s"]
+[ext_resource type="FontFile" uid="uid://cptoatoa1d6lw" path="res://fonts/NotJamOldStyle14.ttf" id="2_8vt4i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_q0itl"]
+font = ExtResource("2_8vt4i")
+font_size = 22
+font_color = Color(0.956863, 0.447059, 0.2, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.760784)
+
+[sub_resource type="Animation" id="Animation_uycev"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:label_settings:font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [22]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3nx4f"]
+resource_name = "damage_to_enemy"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:label_settings:font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1, 15]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmic4"]
+_data = {
+"RESET": SubResource("Animation_uycev"),
+"damage_to_enemy": SubResource("Animation_3nx4f")
+}
+
+[node name="showDMG_to_enemy" type="Node2D"]
+script = ExtResource("1_3mg4s")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(2.5, 2.5, 2.5, 1)
+offset_left = -41.0
+offset_top = -13.0
+offset_right = 37.0
+offset_bottom = 12.0
+text = "0 DMG"
+label_settings = SubResource("LabelSettings_q0itl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimateDamage" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+libraries = {
+"": SubResource("AnimationLibrary_fmic4")
+}
